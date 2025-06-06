@@ -1,0 +1,44 @@
+Aggregation functions
+Aggregation functions return a scalar value by applying an aggregation function to a column or to an expression evaluated by iterating a table expression.
+
+Date and Time functions
+Date and time functions help create calculations based on dates and time. Many of the functions in DAX are similar to the Excel date and time functions.
+
+Filter functions
+Filter functions manipulate table and filter contexts.
+
+Financial functions
+Financial functions corresponding to Excel functions with the same name.
+
+Information functions
+Information functions provide information about the data type or filter context of the argument provided.
+
+Logical functions
+Logical functions act upon an expression, to return information about the values or sets in the expression.
+
+Math and Trig functions
+The mathematical functions in DAX are very similar to the Excel mathematical and trigonometric functions.
+
+Other functions
+These are special functions that cannot be classified in other categories.
+
+Parent-child functions
+These functions help flatten a parent-child hierarchy into a regular hierarchy.
+
+Relationship management functions
+These functions manage and manipulate relationships between tables.
+
+Statistical functions
+Statistical aggregation functions.
+
+Table manipulation functions
+These functions manipulate and return tables.
+
+Text functions
+Text functions manipulate strings.
+
+Time Intelligence functions
+Time intelligence functions support calculations to compare and aggregate data over time periods, supporting days, months, quarters, and years.
+
+Visual calculations functions
+Visual calculations functions can only be used in Power BI visual calculations and cannot be used in regular measures, calculated columns, nor calculated tables.
