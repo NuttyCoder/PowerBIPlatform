@@ -408,4 +408,210 @@ const Dashboard = () => {
               <select
                 value={selectedRegion}
                 onChange={(e) => setSelectedRegion(e.target.value)}
-                className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-bl
+                className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All Regions</option>
+                <option value="na">North America</option>
+                <option value="eu">Europe</option>
+                <option value="ap">Asia Pacific</option>
+              </select>
+            </div>
+            <button
+              onClick={handleRefresh}
+              disabled={isLoading}
+              className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+              Refresh
+            </button>
+            <button
+              onClick={exportData}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Export
+            </button>
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <KPICard
+            title="Total Revenue"
+            value={totalRevenue}
+            change={8.2}
+            icon={DollarSign}
+            color="bg-green-500"
+            prefix="$"
+          />
+          <KPICard
+            title="Total Orders"
+            value={totalOrders}
+            change={12.5}
+            icon={ShoppingCart}
+            color="bg-blue-500"
+          />
+          <KPICard
+            title="Visitors"
+            value={totalVisitors}
+            change={-2.1}
+            icon={Eye}
+            color="bg-purple-500"
+          />
+          <KPICard
+            title="Conversion Rate"
+            value={conversionRate}
+            change={5.8}
+            icon={Users}
+            color="bg-orange-500"
+            suffix="%"
+          />
+        </div>
+
+        {/* Charts Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Revenue Trend */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Trend</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={currentData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis dataKey="date" stroke="#6b7280" fontSize={12} />
+                <YAxis stroke="#6b7280" fontSize={12} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#1f2937',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: '#fff'
+                  }}
+                  formatter={(value) => [`$${value.toLocaleString()}`, 'Revenue']}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#3b82f6"
+                  fill="url(#colorRevenue)"
+                  strokeWidth={2}
+                />
+                <defs>
+                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Orders vs Visitors */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Orders vs Visitors</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={currentData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis dataKey="date" stroke="#6b7280" fontSize={12} />
+                <YAxis stroke="#6b7280" fontSize={12} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#1f2937',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: '#fff'
+                  }}
+                />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="orders"
+                  stroke="#10b981"
+                  strokeWidth={3}
+                  dot={{ fill: '#10b981', strokeWidth: 2, r: 4 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="visitors"
+                  stroke="#8b5cf6"
+                  strokeWidth={3}
+                  dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Bottom Row Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Product Performance */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Product Performance</h3>
+            <div className="flex flex-col lg:flex-row items-center">
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={userData?.productData || []}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={100}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {(userData?.productData || []).map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => [`${value}%`, 'Market Share']} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="lg:ml-4 mt-4 lg:mt-0">
+                {(userData?.productData || []).map((item, index) => (
+                  <div key={index} className="flex items-center mb-3">
+                    <div
+                      className="w-3 h-3 rounded-full mr-3"
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">{item.name}</p>
+                      <p className="text-xs text-gray-500">${item.revenue.toLocaleString()}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Regional Sales */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Regional Sales Performance</h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={userData?.regionData || []} layout="horizontal">
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis type="number" stroke="#6b7280" fontSize={12} />
+                <YAxis dataKey="region" type="category" stroke="#6b7280" fontSize={12} width={80} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#1f2937',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: '#fff'
+                  }}
+                  formatter={(value) => [`$${value.toLocaleString()}`, 'Sales']}
+                />
+                <Bar dataKey="sales" fill="#06b6d4" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>Dashboard last updated: {new Date().toLocaleString()}</p>
+          <p className="mt-1">Logged in as: {user.email}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
