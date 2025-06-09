@@ -1,0 +1,4 @@
+Building case Study
+data, develope, test, deploy
+creating a data analytics dashhub
+where all products are aligned in one spot
