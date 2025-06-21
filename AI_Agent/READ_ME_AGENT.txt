@@ -1,4 +1,4 @@
-✅ AI Agent Integration - JRW Portal (Vercel + OpenAI)
+✅ AI Agent Integration -  Portal (Vercel + OpenAI)
 
 1. Add your OpenAI key to a .env.local file:
    OPENAI_API_KEY=sk-your-key-here
