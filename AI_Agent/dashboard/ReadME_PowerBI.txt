@@ -15,6 +15,13 @@ Use Power BI Desktop to:
     "web/pages/api/agent.js": "/* Vercel function that sends request to OpenAI */",
     "web/.env.local.example": "OPENAI_API_KEY=sk-...\nNEXT_PUBLIC_FIREBASE_API_KEY=...",
 
+| Stage                           | Component                | Tools                              | Delivered Code             |
+| ------------------------------- | ------------------------ | ---------------------------------- | -------------------------- |
+| 1️⃣ **Data Prep & Forecasting** | Clean + Forecast Sales   | Python (Prophet or moving average) | ✅ Python script → Excel    |
+| 2️⃣ **Dashboard Creation**      | Visualize KPIs + RLS     | Power BI Desktop                   | ✅ RLS-ready .pbix template |
+| 3️⃣ **Client Portal Web App**   | Login, dashboard, Stripe | Next.js + Firebase                 | ✅ Frontend + Firestore     |
+| 4️⃣ **AI Assistant**            | Forecast explainer       | GPT-4 + Vercel Function            | ✅ Serverless /agent API    |
+| 5️⃣ **Deployment**              | Live hosting & login     | Vercel + SharePoint                | ✅ Vercel setup + README    |
 
 Goal is to include:
 
