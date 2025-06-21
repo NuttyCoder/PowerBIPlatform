@@ -17,7 +17,8 @@ export default function Home() {
               color: "white",
               textDecoration: "none"
             }}>
-              Subscribe
+              <a href="https://buy.stripe.com/..." className="button">Subscribe</a>
+
             </a>
           </div>
         ))}
